@@ -1,15 +1,20 @@
-
 import styled from 'styled-components'
 import Header from "./components/Header";
+import GistList from "./components/GistList";
 import GlobalStyles from "./GlobalStyle";
+import {Provider} from 'react-redux';
+import {store} from "./state/store";
 
 const App = () => {
-  return (
-    <Wrapper className="App" data-testid="app">
-      <Header />
-      <GlobalStyles />
-    </Wrapper>
-  );
+    return (
+        <Provider store={store}>
+            <Wrapper className="App" data-testid="app">
+                <Header/>
+                <GistList/>
+                <GlobalStyles/>
+            </Wrapper>
+        </Provider>
+    );
 }
 
 const Wrapper = styled.div`
