@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const GistOwner = ({owner}) => {
 
@@ -29,5 +30,13 @@ const UserName = styled.span`
   font-size: 16px;
   font-weight: bold;
 `;
+
+GistOwner.propTypes = {
+    owner: PropTypes.shape({
+        html_url: PropTypes.string,
+        avatar_url: PropTypes.string,
+        login: PropTypes.string,
+    }),
+};
 
 export default GistOwner;

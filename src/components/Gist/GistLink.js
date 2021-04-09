@@ -1,17 +1,14 @@
 import React from 'react';
 import styled from "styled-components";
 import Octicon from 'react-octicon';
+import PropTypes from "prop-types";
 
-const GistLink = ({icon, text, href}) => {
-
-    return (
-        <Link href={href} target={'_blank'} rel={'noreferrer'}>
-            <Octicon name={icon}/>
-            <LinkText>{text}</LinkText>
-        </Link>
-    );
-
-}
+const GistLink = ({icon, text, href}) => (
+    <Link href={href} target={'_blank'} rel={'noreferrer'}>
+        <Octicon name={icon}/>
+        <LinkText>{text}</LinkText>
+    </Link>
+)
 
 const Link = styled.a`
   align-items: center;
@@ -27,5 +24,10 @@ const LinkText = styled.span`
   margin-left: 5px;
 `;
 
+GistLink.propTypes = {
+    icon: PropTypes.string,
+    text: PropTypes.string,
+    href: PropTypes.string,
+};
 
 export default GistLink;

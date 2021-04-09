@@ -1,10 +1,27 @@
 import React from 'react';
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 function isNotFound(error) {
     // A little bit dirty but still working way to detect whether there were no results for this query
     return error.message === "Not Found";
 }
+
+const ErrorIcon = () => (
+    <SvgIcon viewBox="0 0 512 512">
+        <g>
+            <path
+                fill={'currentColor'}
+                d="M257,461.46c-114,0-206.73-92.74-206.73-206.73S143,48,257,48s206.73,92.74,206.73,206.73S371,461.46,257,461.46ZM257,78C159.55,78,80.27,157.28,80.27,254.73S159.55,431.46,257,431.46s176.73-79.28,176.73-176.73S354.45,78,257,78Z"/>
+            <path
+                fill={'currentColor'}
+                d="M342.92,358a15,15,0,0,1-10.61-4.39L160.47,181.76a15,15,0,1,1,21.21-21.21L353.53,332.4A15,15,0,0,1,342.92,358Z"/>
+            <path
+                fill={'currentColor'}
+                d="M171.07,358a15,15,0,0,1-10.6-25.6L332.31,160.55a15,15,0,0,1,21.22,21.21L181.68,353.61A15,15,0,0,1,171.07,358Z"/>
+        </g>
+    </SvgIcon>
+);
 
 const Error = ({error}) => {
     return <Container>
@@ -15,7 +32,7 @@ const Error = ({error}) => {
             <ErrorHeader>
                 {
                     isNotFound(error)
-                        ? 'This user has no gists'
+                        ? 'User not found'
                         : 'Oops, could not load gists for you!'
                 }
             </ErrorHeader>
@@ -47,26 +64,16 @@ const ErrorReason = styled.div`
   margin-top: 5px;
 `
 
-const ErrorIcon = () => (
-    <SvgIcon viewBox="0 0 512 512">
-        <g>
-            <path
-                fill={'currentColor'}
-                d="M257,461.46c-114,0-206.73-92.74-206.73-206.73S143,48,257,48s206.73,92.74,206.73,206.73S371,461.46,257,461.46ZM257,78C159.55,78,80.27,157.28,80.27,254.73S159.55,431.46,257,431.46s176.73-79.28,176.73-176.73S354.45,78,257,78Z"/>
-            <path
-                fill={'currentColor'}
-                d="M342.92,358a15,15,0,0,1-10.61-4.39L160.47,181.76a15,15,0,1,1,21.21-21.21L353.53,332.4A15,15,0,0,1,342.92,358Z"/>
-            <path
-                fill={'currentColor'}
-                d="M171.07,358a15,15,0,0,1-10.6-25.6L332.31,160.55a15,15,0,0,1,21.22,21.21L181.68,353.61A15,15,0,0,1,171.07,358Z"/>
-        </g>
-    </SvgIcon>
-);
-
 const SvgIcon = styled.svg`
   width: 64px;
   height: 64px;
   color: #ff0000;
 `
+
+Error.propTypes = {
+    error: PropTypes.shape({
+        message: PropTypes.string,
+    }),
+}
 
 export default Error;
