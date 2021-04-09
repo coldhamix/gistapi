@@ -12,26 +12,19 @@ const initialState = {
 export const loadGists = createAsyncThunk(
     'gists/fetch',
     async (username = '', {getState, dispatch}) => {
-
         const {cache} = getState();
-
         if (cache[username]) {
-            return {
-                searchQuery: username,
-                gists: cache[username]
-            };
+            return makeGistPayload(cache[username], username);
         }
 
         const response = username ? await getGistForUser(username) : await getPublicGists();
-        let gistsResponse = {
-            gists: response.data,
-            searchQuery: username,
-        };
 
-        dispatch(addToCache(gistsResponse))
-        return gistsResponse;
-    });
+        let gistsPayload = makeGistPayload(response.data, username);
+        dispatch(addToCache(gistsPayload))
 
+        return gistsPayload;
+    }
+);
 export const gistsSlice = createSlice({
     name: 'gists',
     initialState,
@@ -56,5 +49,10 @@ export const gistsSlice = createSlice({
         }
     }
 });
+
+function makeGistPayload(gists, searchQuery) {
+    return {gists, searchQuery};
+}
+
 
 export const gistsReducer = gistsSlice.reducer;

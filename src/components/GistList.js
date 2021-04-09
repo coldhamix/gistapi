@@ -4,12 +4,7 @@ import Gist from "./Gist";
 
 const GistList = () => {
 
-    const {
-        gists,
-        loading,
-        error,
-        searchQuery
-    } = useSelector(state => state.gists);
+    const {gists, loading, error} = useSelector(state => state.gists);
 
     if (loading) {
         return <h1>Loading...</h1>;
@@ -24,7 +19,6 @@ const GistList = () => {
 
     return (
         <>
-            <h1>{searchQuery ? `Gists for user: ${searchQuery}` : 'Public gists'}</h1>
             {
                 gists.map(gist => <Gist
                     key={gist.id}
