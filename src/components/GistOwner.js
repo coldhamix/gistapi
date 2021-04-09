@@ -3,7 +3,7 @@ import React from 'react';
 const GistOwner = ({owner}) => {
 
     return <div>
-        <a href={owner.html_url} target={'_blank'}>
+        <a href={owner.html_url} target={'_blank'} rel="noreferrer">
             <img src={owner.avatar_url} alt={owner.login}/>
             <span>{owner.login}</span>
         </a>

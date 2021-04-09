@@ -1,22 +1,25 @@
-import React, {useEffect} from 'react'
-import {useDispatch, useSelector} from "react-redux";
-import {loadGists} from "../state/gistsSlice";
+import React from 'react'
+import {useSelector} from "react-redux";
 import Gist from "./Gist";
 
 const GistList = () => {
 
-    const {gists, loading, error, searchQuery} = useSelector(state => state.gists);
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(loadGists());
-    }, []);
+    const {
+        gists,
+        loading,
+        error,
+        searchQuery
+    } = useSelector(state => state.gists);
 
     if (loading) {
         return <h1>Loading...</h1>;
     }
 
     if (error) {
-        return <h1>Error happened, try again</h1>;
+        return <>
+            <h1>Oops, could not find gists for you!</h1>
+            <p>Reason: {error.message || 'Unknown'}</p>
+        </>;
     }
 
     return (

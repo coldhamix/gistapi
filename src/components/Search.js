@@ -1,16 +1,33 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import Octicon from 'react-octicon'
+import useDebounce from "../util/use-debounce";
+import {useDispatch} from "react-redux";
+import {loadGists} from "../state/gistsSlice";
 
 const Search = () => {
-  return (
-    <Wrapper>
-      <InputBox>
-      <Octicon name="search" />
-      <Input placeholder="Search Gists for the username"/>
-      </InputBox>
-    </Wrapper>
-  )
+
+    const dispatch = useDispatch();
+
+    const [query, setQuery] = useState('');
+    const debouncedQuery = useDebounce(query, 300);
+
+    useEffect(() => {
+        dispatch(loadGists(debouncedQuery));
+    }, [debouncedQuery, dispatch]);
+
+    return (
+        <Wrapper>
+            <InputBox>
+                <Octicon name="search"/>
+                <Input
+                    placeholder="Search Gists for the username"
+                    value={query}
+                    onChange={(event) => setQuery(event.target.value)}
+                />
+            </InputBox>
+        </Wrapper>
+    )
 }
 
 const Wrapper = styled.div`
@@ -33,7 +50,7 @@ const Input = styled.input`
   width: 100%;
   font-size: 16px;
 
-  &:focus{
+  &:focus {
     outline: 0;
   }
 `;
