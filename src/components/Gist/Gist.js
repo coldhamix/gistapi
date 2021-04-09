@@ -79,7 +79,7 @@ Gist.propTypes = {
         description: PropTypes.string,
         created_at: PropTypes.string,
         updated_at: PropTypes.string,
-        files: PropTypes.arrayOf(PropTypes.shape({
+        files: PropTypes.objectOf(PropTypes.shape({
             raw_url: PropTypes.string,
             filename: PropTypes.string,
         })),
