@@ -67,21 +67,23 @@ const GistFiles = styled.div`
 `;
 
 Gist.propTypes = {
-    owner: PropTypes.shape({
+    gist: PropTypes.shape({
+        owner: PropTypes.shape({
+            html_url: PropTypes.string,
+            avatar_url: PropTypes.string,
+            login: PropTypes.string,
+        }),
         html_url: PropTypes.string,
-        avatar_url: PropTypes.string,
-        login: PropTypes.string,
+        forks_url: PropTypes.string,
+        comments_url: PropTypes.string,
+        description: PropTypes.string,
+        created_at: PropTypes.string,
+        updated_at: PropTypes.string,
+        files: PropTypes.arrayOf(PropTypes.shape({
+            raw_url: PropTypes.string,
+            filename: PropTypes.string,
+        })),
     }),
-    html_url: PropTypes.string,
-    forks_url: PropTypes.string,
-    comments_url: PropTypes.string,
-    description: PropTypes.string,
-    created_at: PropTypes.string,
-    updated_at: PropTypes.string,
-    files: PropTypes.arrayOf(PropTypes.shape({
-        raw_url: PropTypes.string,
-        filename: PropTypes.string,
-    })),
 }
 
 export default Gist
