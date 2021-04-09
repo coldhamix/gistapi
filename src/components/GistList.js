@@ -2,6 +2,7 @@ import React from 'react'
 import {useSelector} from "react-redux";
 import Gist from "./Gist/Gist";
 import Loading from "./Loading";
+import Error from "./Error";
 
 const GistList = () => {
 
@@ -12,10 +13,7 @@ const GistList = () => {
     }
 
     if (error) {
-        return <>
-            <h1>Oops, could not find gists for you!</h1>
-            <p>Reason: {error.message || 'Unknown'}</p>
-        </>;
+        return <Error error={error}/>
     }
 
     return (
