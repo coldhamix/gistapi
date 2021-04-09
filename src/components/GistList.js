@@ -1,13 +1,14 @@
 import React from 'react'
 import {useSelector} from "react-redux";
-import Gist from "./Gist";
+import Gist from "./Gist/Gist";
+import Loading from "./Loading";
 
 const GistList = () => {
 
     const {gists, loading, error} = useSelector(state => state.gists);
 
     if (loading) {
-        return <h1>Loading...</h1>;
+        return <Loading/>;
     }
 
     if (error) {

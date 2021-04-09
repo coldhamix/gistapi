@@ -41,7 +41,7 @@ const Gist = ({gist}) => {
 const Container = styled.div`
   border-top: 1px solid #ececec;
   margin: 0 auto;
-  padding: 20px 0 40px;
+  padding: 20px 0 30px;
   width: 800px;
 `
 
