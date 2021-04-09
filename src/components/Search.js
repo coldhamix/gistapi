@@ -3,15 +3,20 @@ import styled from 'styled-components'
 import Octicon from 'react-octicon'
 import useDebounce from "../util/use-debounce";
 import {useDispatch} from "react-redux";
-import {loadGists} from "../state/gistsSlice";
+import {loadGists} from "../state/slice/gists";
 
 const Search = () => {
 
     const dispatch = useDispatch();
 
     const [query, setQuery] = useState('');
-    const debouncedQuery = useDebounce(query, 300);
 
+    /*
+     * We debounce the value of the controlled search input here to 300ms to reduce amount of requests to the API.
+     * It will fire only after 300ms after the last keystroke when there are no subsequent keystrokes.
+     * Otherwise we would spam too much requests to the backend, each time when user types next character.
+     */
+    const debouncedQuery = useDebounce(query, 300);
     useEffect(() => {
         dispatch(loadGists(debouncedQuery));
     }, [debouncedQuery, dispatch]);

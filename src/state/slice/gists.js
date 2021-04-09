@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {getGistForUser, getPublicGists} from "../services/gistService";
-import {addToCache} from "./cacheSlice";
+import {getGistForUser, getPublicGists} from "../../services/gistService";
+import {addToCache} from "./cache";
 
 const initialState = {
     gists: [],
@@ -9,6 +9,12 @@ const initialState = {
     searchQuery: null,
 };
 
+/**
+ * Async action for loading gists by query.
+ * Uses caching for the subsequent calls for the same username.
+ *
+ * @Param username Username for which we are loading gists. When not specified - public gists will be loaded. *
+ */
 export const loadGists = createAsyncThunk(
     'gists/fetch',
     async (username = '', {getState, dispatch}) => {
@@ -25,7 +31,22 @@ export const loadGists = createAsyncThunk(
         return gistsPayload;
     }
 );
-export const gistsSlice = createSlice({
+
+/**
+ * Gists slice of the store.
+ *
+ * This is the main part of this app.
+ * This store contains:
+ * - gists themselves
+ * - current search query
+ * - loading and error state
+ *
+ * This store reacts to the `loadGists` action and handles:
+ * - pending state when loading starts
+ * - fulfilled state when loading successfully completes
+ * - rejected state when loading fails *
+ */
+export const gists = createSlice({
     name: 'gists',
     initialState,
     reducers: {},
@@ -50,9 +71,14 @@ export const gistsSlice = createSlice({
     }
 });
 
+/**
+ * Helper function to make gist payload for reducers
+ * @param gists List of gists
+ * @param searchQuery Corresponding search query
+ * @return {{searchQuery, gists}}
+ */
 function makeGistPayload(gists, searchQuery) {
     return {gists, searchQuery};
 }
 
-
-export const gistsReducer = gistsSlice.reducer;
+export const gistsReducer = gists.reducer;
